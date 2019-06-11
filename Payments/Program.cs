@@ -1,6 +1,7 @@
 ﻿using System;
 using Payments.Enities;
 using Payments.Enities.Enums;
+using System.Globalization;
 
 namespace Payments
 {
@@ -34,7 +35,7 @@ namespace Payments
                 DateTime date = DateTime.Parse(Console.ReadLine());
                 Console.Write("Value per hour: ");
                 double valuePerHour = double.Parse(Console.ReadLine());
-                Console.WriteLine("Duration (hours): ");
+                Console.Write("Duration (hours): ");
                 int hours = int.Parse(Console.ReadLine());
                 worker.Contracts.Add(new HourContract(date, valuePerHour, hours));
                 Console.WriteLine();
@@ -44,8 +45,11 @@ namespace Payments
             Console.Write("Enter month and year to calculate income (MM/YYYY): ");
             string yearMonth = Console.ReadLine();
             string[] elements = yearMonth.Split("/");
-            double income = worker.Income(int.Parse(elements[0]), int.Parse(elements[1]));
+            double income = worker.Income(int.Parse(elements[1]), int.Parse(elements[0]));
 
+            Console.WriteLine("Name: " + worker.Name);
+            Console.WriteLine("Department: " + worker.Department.Name);
+            Console.WriteLine("Income for " + yearMonth + ": " + income.ToString("F2", CultureInfo.InvariantCulture));
         }
     }
 }
